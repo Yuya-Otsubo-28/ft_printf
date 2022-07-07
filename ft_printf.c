@@ -6,7 +6,7 @@
 /*   By: yotsubo <y.otsubo.886@ms.saitama-u.ac.j    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/28 13:51:13 by yotsubo           #+#    #+#             */
-/*   Updated: 2022/07/05 18:42:28 by yotsubo          ###   ########.fr       */
+/*   Updated: 2022/07/07 15:04:51 by yotsubo          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,28 +57,28 @@ int	ft_printf(const char *format, ...)
 {
 	va_list	ap;
 	int		len;
-	int		length;
+	int		res;
 	int		args_res;
 
-	length = 0;
+	res = 0;
 	va_start(ap, format);
 	while (*format)
 	{
 		len = len_to_percent(format);
 		ft_putnstr_fd((char *)format, len, 1);
-		length += len;
+		res += len;
 		format += len;
 		if (format[0] && format[1])
 		{
 			args_res = print_args((char *)format, ap);
 			if (args_res < 0)
 				return (-1);
-			length += args_res;
+			res += args_res;
 			format += 2;
 		}
 	}
 	va_end(ap);
-	return (length);
+	return (res);
 }
 /*
 int main(void)
